@@ -21,6 +21,12 @@ const socialIcons = [
   },
 ];
 
+const sharedStyles =
+  "p-3 rounded-full bg-white/10 dark:bg-white/5 backdrop-blur-md border border-black/10 dark:border-white/10 text-black dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors";
+
+const tooltipStyles =
+  "text-xs px-3 py-1.5 rounded-lg border border-black/10 dark:border-white/10 bg-white/80 dark:bg-white/10 text-black dark:text-white backdrop-blur-md transition-opacity duration-300 data-[state=delayed-open]:opacity-100 data-[state=closed]:opacity-0";
+
 const SocialMedia = () => {
   return (
     <motion.div
@@ -39,7 +45,7 @@ const SocialMedia = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={item.label}
-                className="bg-white dark:bg-[#21262C] text-black dark:text-white p-3 rounded-full transition-colors hover:text-indigo-600 dark:hover:text-indigo-400"
+                className={sharedStyles}
                 variants={{
                   hidden: { opacity: 0, scale: 0.8 },
                   visible: { opacity: 1, scale: 1 },
@@ -50,15 +56,12 @@ const SocialMedia = () => {
                 {item.icon}
               </motion.a>
             </Tooltip.Trigger>
-            <Tooltip.Content
-              side="top"
-              sideOffset={5}
-              className="text-xs backdrop-blur-md bg-white/10 dark:bg-white/10 text-white px-3 py-1.5 rounded-lg shadow-lg border border-white/20
-             data-[state=delayed-open]:opacity-100 data-[state=closed]:opacity-0 transition-opacity duration-300"
-            >
-              {item.label}
-              <Tooltip.Arrow className="fill-white/20" />
-            </Tooltip.Content>
+            <Tooltip.Portal>
+              <Tooltip.Content side="top" sideOffset={5} className={tooltipStyles}>
+                {item.label}
+                <Tooltip.Arrow className="fill-white/80 dark:fill-white/10" />
+              </Tooltip.Content>
+            </Tooltip.Portal>
           </Tooltip.Root>
         </Tooltip.Provider>
       ))}
@@ -73,18 +76,17 @@ const SocialMedia = () => {
               }}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
+
             >
               <DarkModeToggle />
             </motion.div>
           </Tooltip.Trigger>
-          <Tooltip.Content
-            side="top"
-            sideOffset={5}
-            className="text-xs bg-gray-900 text-white px-2 py-1 rounded shadow-md"
-          >
-            Toggle Theme
-            <Tooltip.Arrow className="fill-gray-900" />
-          </Tooltip.Content>
+          <Tooltip.Portal>
+            <Tooltip.Content side="top" sideOffset={5} className={tooltipStyles}>
+              Toggle Theme
+              <Tooltip.Arrow className="fill-white/80 dark:fill-white/10" />
+            </Tooltip.Content>
+          </Tooltip.Portal>
         </Tooltip.Root>
       </Tooltip.Provider>
     </motion.div>
