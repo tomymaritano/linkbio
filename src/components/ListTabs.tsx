@@ -17,26 +17,26 @@ const ListTabs = ({ onTabChange }: ListTabsProps) => {
   };
 
   return (
-    <div className="flex bg-gray-100 dark:bg-[#21262C] p-1 rounded-xl space-x-2 w-full mb-4 transition-colors">
+    <div className="flex w-full overflow-x-auto bg-gray-100 dark:bg-[#21262C] p-1 rounded-xl gap-2 sm:justify-center scrollbar-hide">
       {tabs.map((tab) => (
         <motion.button
           key={tab}
           onClick={() => handleClick(tab)}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className={`relative flex-1 text-sm font-medium px-4 py-2 rounded-lg overflow-hidden transition-all ${
-            tab === activeTab
-              ? "text-black dark:text-white"
-              : "text-gray-500 dark:text-white/60 hover:text-black dark:hover:text-white"
-          }`}
+          whileHover={{ scale: 1.04 }}
+          whileTap={{ scale: 0.97 }}
+          className={`relative whitespace-nowrap text-sm font-medium px-4 py-2 rounded-lg transition-all duration-300 flex-1 min-w-[110px] text-center
+            ${
+              tab === activeTab
+                ? "bg-white dark:bg-[#30363D] text-black dark:text-white shadow-sm"
+                : "text-gray-500 dark:text-white/50 hover:text-black dark:hover:text-white"
+            }`}
         >
           {tab}
-
           {tab === activeTab && (
             <motion.div
               layoutId="tab-indicator"
-              className="absolute bottom-0 left-0 h-1 w-full bg-indigo-500 rounded-t"
-              transition={{ type: "spring", stiffness: 400, damping: 30 }}
+              className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] w-4/5 bg-indigo-500 rounded-full"
+              transition={{ type: "spring", stiffness: 500, damping: 30 }}
             />
           )}
         </motion.button>

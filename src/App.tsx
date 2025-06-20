@@ -9,7 +9,7 @@ function App() {
     <div className="relative bg-white/90 dark:bg-[#161B22] min-h-screen flex justify-center items-center p-4 overflow-hidden transition-colors duration-500">
       {/* Fondo animado */}
       <div
-        className="absolute inset-0 animate-[pulse_10s_ease-in-out_infinite] opacity-10 blur-3xl pointer-events-none z-0"
+        className="absolute inset-0 animate-[pulse_10s_ease-in-out_infinite] opacity-10 blur-xl pointer-events-none z-0"
         style={{
           background: 'radial-gradient(circle at center, #6366f1 0%, transparent 70%)',
         }}

@@ -32,7 +32,7 @@ const DarkModeToggle = () => {
         <motion.button
             onClick={() => setIsDark(!isDark)}
             whileTap={{ scale: 0.9, rotate: 15 }}
-            className={`w-10 h-10 flex items-center justify-center rounded-lg 
+            className={`w-10 h-10 flex items-center justify-center rounded-full 
         transition-colors duration-300 
         ${isDark ? "bg-[#FBDC54] hover:bg-[#FFD207]" : "bg-indigo-500 hover:bg-indigo-400"}
       `}

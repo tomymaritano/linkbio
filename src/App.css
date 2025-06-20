@@ -17,16 +17,11 @@ html {
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
-
-.page {
-  @apply transition-colors duration-700 ease-in-out;
-  background: linear-gradient(270deg, #fdf6e3, #e3f2fd, #cfe9fc);
-  background-size: 600% 600%;
-  animation: bgShift 12s ease infinite;
+body {
+  @apply transition-colors duration-500 ease-in-out;
+  background: radial-gradient(circle at top left, #fdf6e3, #e3f2fd);
 }
 
-.dark .page {
-  background: linear-gradient(270deg, #0f1117, #1c1f2a, #232832);
-  background-size: 600% 600%;
-  animation: bgShift 12s ease infinite;
+[data-theme="dark"] body {
+  background: radial-gradient(circle at top left, #0f1117, #1b1f23);
 }
