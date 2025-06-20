@@ -9,7 +9,7 @@ type MetaProps = {
 };
 
 const defaultMeta = {
-  title: "bio.hacklab.dog",
+  title: "Link Bio - Tomy Maritano",
   description: "Links, proyectos y redes de Hacklab",
   image: "https://bio.hacklab.dog/og-default.png",
   url: "https://bio.hacklab.dog",
