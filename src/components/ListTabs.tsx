@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import type { TabKey } from "../types";
 
 const tabs: TabKey[] = ["My projects", "Dev Resources", "UI Lover"];
@@ -18,16 +19,27 @@ const ListTabs = ({ onTabChange }: ListTabsProps) => {
     return (
         <div className="flex bg-[#21262C] p-1 rounded-xl space-x-2 w-full mb-4">
             {tabs.map((tab) => (
-                <button
+                <motion.button
                     key={tab}
                     onClick={() => handleClick(tab)}
-                    className={`flex-1 text-sm font-medium px-4 py-2 rounded-lg transition-colors ${tab === activeTab
-                            ? "bg-[#30363D] text-white shadow-inner"
-                            : "text-white/60 hover:text-white"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`relative flex-1 text-sm font-medium px-4 py-2 rounded-lg overflow-hidden ${tab === activeTab
+                        ? "text-white"
+                        : "text-white/60 hover:text-white transition-colors duration-200"
                         }`}
                 >
                     {tab}
-                </button>
+
+                    {/* Indicador animado */}
+                    {tab === activeTab && (
+                        <motion.div
+                            layoutId="tab-indicator"
+                            className="absolute bottom-0 left-0 h-1 w-full bg-indigo-500 rounded-t"
+                            transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                        />
+                    )}
+                </motion.button>
             ))}
         </div>
     );

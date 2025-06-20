@@ -14,7 +14,7 @@ function App() {
         backgroundPosition: 'center',
       }}
     >
-      <div className="flex flex-col gap-5 justify-center items-center w-full  max-w-md min-h-screen py-12">
+      <div className="flex flex-col gap-5 justify-center items-center w-full  max-w-lg min-h-screen py-12">
         <Profile />
         <ListComponent />
         <SocialMedia />
