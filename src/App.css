@@ -25,3 +25,13 @@ body {
 [data-theme="dark"] body {
   background: radial-gradient(circle at top left, #0f1117, #1b1f23);
 }
+
+/* Oculta scrollbar en navegadores modernos */
+.no-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}

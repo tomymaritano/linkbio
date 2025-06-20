@@ -12,19 +12,19 @@ const Profile = () => {
           Tomás Maritano
         </h1>
 
-        <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 font-light leading-snug">
-          Indie dev & product builder{" "}—
-          <span className="block sm:inline text-indigo-600 dark:text-indigo-400">
+        <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 font-regular leading-snug">
+          Indie dev & product builder{" "}—{" "} 
+        <span className="block sm:inline  italic">
             Buenos Aires, Argentina
-          </span>
+        </span>
         </p>
       </div>
 
-      <p className="text-sm sm:text-base text-gray-800 dark:text-gray-300 max-w-xs sm:max-w-md leading-relaxed">
+      <p className="text-base sm:text-lg text-gray-800 dark:text-gray-300 max-w-md sm:max-w-lg">
         I specialize in the entire lifecycle of digital products: from ideation,
         design, and development to metrics and execution. Passionate about
         creating impactful solutions. 🌍🚀{" "}
-        <span className="text-indigo-500 underline">
+        <span className="text-indigo-500 underline font-medium">
           <a href="https://www.inkrun.app" target="_blank">@inkrun</a>
         </span>
       </p>

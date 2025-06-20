@@ -16,7 +16,7 @@ function App() {
       />
 
       {/* Contenido */}
-      <div className="flex flex-col gap-5 justify-center items-center w-full max-w-lg py-12 z-10">
+      <div className="flex flex-col gap-5 justify-center items-center w-full max-w-xl py-12 z-10">
         <Profile />
         <ListComponent />
         <SocialMedia />

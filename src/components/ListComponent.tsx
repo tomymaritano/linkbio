@@ -31,7 +31,8 @@ const ListComponent = () => {
   const items = data[activeTab] || [];
 
   return (
-    <div className="w-full max-w-lg space-y-2 px-4 sm:px-6">
+    <div className="w-full max-w-lg space-y-2 px-4 sm:px-6 ">
+      
       <ListTabs onTabChange={setActiveTab} />
       <div className="space-y-2 max-h-[60vh] overflow-y-auto scrollbar-hide">
         <AnimatePresence mode="wait">

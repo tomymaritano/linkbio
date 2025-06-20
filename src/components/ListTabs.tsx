@@ -1,33 +1,53 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import type { TabKey } from "../types";
 
 const tabs: TabKey[] = ["My projects", "Dev Resources", "UI Lover"];
 
-type ListTabsProps = {
+type HackleTabsProps = {
   onTabChange: (tab: TabKey) => void;
 };
 
-const ListTabs = ({ onTabChange }: ListTabsProps) => {
+const HackleTabs = ({ onTabChange }: HackleTabsProps) => {
   const [activeTab, setActiveTab] = useState<TabKey>(tabs[0]);
+  const tabRefs = useRef<Record<TabKey, HTMLButtonElement | null>>({
+    "My projects": null,
+    "Dev Resources": null,
+    "UI Lover": null,
+  });
 
   const handleClick = (tab: TabKey) => {
     setActiveTab(tab);
     onTabChange(tab);
+
+    const tabEl = tabRefs.current[tab];
+    if (tabEl) {
+      tabEl.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
+    }
   };
 
   return (
-    <div className="flex w-full overflow-x-auto bg-gray-100 dark:bg-[#21262C] p-1 rounded-xl gap-2 sm:justify-center scrollbar-hide">
+    <div
+      className="flex w-full overflow-x-auto snap-x snap-mandatory p-1 gap-2 sm:justify-center no-scrollbar
+      bg-white/60 dark:bg-white/5 backdrop-blur-md rounded-xl shadow-inner border border-white/10 transition-colors"
+    >
       {tabs.map((tab) => (
         <motion.button
           key={tab}
+          ref={(el) => {
+            tabRefs.current[tab] = el;
+          }}
           onClick={() => handleClick(tab)}
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.97 }}
-          className={`relative whitespace-nowrap text-sm font-medium px-4 py-2 rounded-lg transition-all duration-300 flex-1 min-w-[110px] text-center
+          className={`relative snap-center whitespace-nowrap text-sm font-medium px-4 py-2 rounded-lg transition-all duration-300 flex-1 min-w-[110px] text-center
             ${
               tab === activeTab
-                ? "bg-white dark:bg-[#30363D] text-black dark:text-white shadow-sm"
+                ? "bg-white dark:bg-black/45 text-black dark:text-white shadow-sm"
                 : "text-gray-500 dark:text-white/50 hover:text-black dark:hover:text-white"
             }`}
         >
@@ -45,4 +65,4 @@ const ListTabs = ({ onTabChange }: ListTabsProps) => {
   );
 };
 
-export default ListTabs;
+export default HackleTabs;
