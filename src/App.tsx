@@ -4,10 +4,12 @@ import ListComponent from './components/ListComponent';
 import Profile from './components/Profile';
 import SocialMedia from './components/SocialMedia';
 import { ThemeTransitionWrapper } from './components/ThemeTransitionWrapper';
+import Meta from './components/Meta';
 
 function App() {
   return (
     <ThemeTransitionWrapper>
+<Meta />
       <div className="relative bg-white/90 dark:bg-[#161B22] min-h-screen flex justify-center items-center p-4 overflow-hidden transition-colors duration-500">
         {/* Fondo animado */}
         <div
