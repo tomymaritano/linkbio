@@ -1,8 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Space+Grotesk:wght@300..700&display=swap');
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+@theme{
+    --font-script: Great Vibes, cursive;
+}
+
+
 html {
-  font-family:  'M PLUS Rounded 1c', sans-serif;
+font-family:  'M PLUS Rounded 1c', sans-serif;
   transition: background 0.5s ease;
 }
 
@@ -11,7 +17,6 @@ html {
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
-
 body {
   @apply transition-colors duration-500 ease-in-out;
   background: radial-gradient(circle at top left, #fdf6e3, #e3f2fd);
@@ -19,4 +24,14 @@ body {
 
 [data-theme="dark"] body {
   background: radial-gradient(circle at top left, #0f1117, #1b1f23);
+}
+
+/* Oculta scrollbar en navegadores modernos */
+.no-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
