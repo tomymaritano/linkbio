@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { FaXTwitter, FaGithub, FaLinkedin } from "react-icons/fa6";
+import DarkModeToggle from "./DarkModeToggle";
 
 const socialIcons = [
   {
@@ -22,7 +23,7 @@ const socialIcons = [
 const SocialMedia = () => {
   return (
     <motion.div
-      className="flex gap-3 justify-center"
+      className="flex gap-3 justify-center items-center"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.6 }}
@@ -35,7 +36,7 @@ const SocialMedia = () => {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={item.label}
-          className="bg-[#21262D] text-white p-2.5 rounded-full hover:text-blue-100 transition-colors"
+          className="bg-white dark:bg-[#21262C] text-black dark:text-white p-3 rounded-lg transition-colors hover:text-indigo-600 dark:hover:text-indigo-400"
           variants={{
             hidden: { opacity: 0, scale: 0.8 },
             visible: { opacity: 1, scale: 1 },
@@ -46,6 +47,17 @@ const SocialMedia = () => {
           {item.icon}
         </motion.a>
       ))}
+      
+      <motion.div
+        variants={{
+          hidden: { opacity: 0, scale: 0.8 },
+          visible: { opacity: 1, scale: 1 },
+        }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <DarkModeToggle />
+      </motion.div>
     </motion.div>
   );
 };

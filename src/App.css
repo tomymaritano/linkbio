@@ -1,28 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Satoshi:wght@400;700&display=swap');
 @import "tailwindcss";
 
-@font-face {
-  font-family: 'Satoshi';
-  src: url('/fonts/satoshi/Satoshi-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+@theme{
+    --font-script: Great Vibes, cursive;
 }
 
-/* Repetir por cada weight */
 
-@body {
+html {
   font-family: 'Satoshi', sans-serif;
+  transition: background 0.5s ease;
 }
 
-@theme {
-  --font-display: "Satoshi", "sans-serif";
-  --breakpoint-3xl: 120rem;
-  --color-avocado-100: oklch(0.99 0 0);
-  --color-avocado-200: oklch(0.98 0.04 113.22);
-  --color-avocado-300: oklch(0.94 0.11 115.03);
-  --color-avocado-400: oklch(0.92 0.19 114.08);
-  --color-avocado-500: oklch(0.84 0.18 117.33);
-  --color-avocado-600: oklch(0.53 0.12 118.34);
-  --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
-  --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
-  /* ... */
+@keyframes bgShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.page {
+  @apply transition-colors duration-700 ease-in-out;
+  background: linear-gradient(270deg, #fdf6e3, #e3f2fd, #cfe9fc);
+  background-size: 600% 600%;
+  animation: bgShift 12s ease infinite;
+}
+
+.dark .page {
+  background: linear-gradient(270deg, #0f1117, #1c1f2a, #232832);
+  background-size: 600% 600%;
+  animation: bgShift 12s ease infinite;
 }
