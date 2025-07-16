@@ -26,13 +26,13 @@ const ListItemWithPreview = ({ item }: Props) => {
           bg-white/40 dark:bg-black/20 backdrop-blur-md border border-black/10 dark:border-white/10
           text-sm text-black dark:text-white transition-all "
         >
-          <span className="transition-transform group-hover:translate-x-1 font-medium">
+          <span className="transition-transform group-hover:translate-x-1 font-body font-semibold">
             {item.label}
           </span>
           {external ? (
-            <ArrowUpRight className="w-4 h-4 text-gray-600 dark:text-white/60 group-hover:text-indigo-500 group-hover:scale-110 transition-transform" />
+            <ArrowUpRight className="w-4 h-4 text-gray-600 dark:text-white/60 group-hover:text-accent-500 group-hover:scale-110 transition-transform" />
           ) : (
-            <ArrowRight className="w-4 h-4 text-gray-600 dark:text-white/60 group-hover:text-indigo-500 group-hover:scale-110 transition-transform" />
+            <ArrowRight className="w-4 h-4 text-gray-600 dark:text-white/60 group-hover:text-accent-500 group-hover:scale-110 transition-transform" />
           )}
         </a>
       </HoverCard.Trigger>
@@ -53,8 +53,8 @@ const ListItemWithPreview = ({ item }: Props) => {
                   className="w-full h-32 object-cover rounded-lg border border-white/10"
                 />
                 <div>
-                  <p className="font-semibold text-sm text-black dark:text-white">{preview.title}</p>
-                  <p className="text-black/70 dark:text-white/60 text-xs line-clamp-3">{preview.description}</p>
+                  <p className="font-heading font-semibold text-sm text-black dark:text-white">{preview.title}</p>
+                  <p className="font-body text-black/70 dark:text-white/60 text-xs line-clamp-3">{preview.description}</p>
                 </div>
               </div>
             </motion.div>
