@@ -1,53 +1,76 @@
 // components/ListComponent.tsx
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import ListTabs from "./ListTabs";
-import ListItemWithPreview from "./ListItemWithPreview";
-import type { MenuItem, TabKey } from "../types";
-import { AnimatePresence, motion } from "framer-motion";
-
-const data: Record<TabKey, MenuItem[]> = {
-  "My projects": [
-    { label: "Portfolio – My Lab", url: "https://hacklab.dog" },
-    { label: "Blog – Read my thoughts", url: "https://blog.hacklab.dog" },
-    { label: "SalaryBoard - explore IT salaries around LATAM", url: "https://salaries.hacklab.dog" },
-    { label: "Dripnex – Minimal wallet", url: "https://dripnex.app" },
-  ],
-  "Dev Resources": [
-    { label: "Refactoring UI – Design for devs", url: "https://refactoringui.com/" },
-    { label: "useHooks – Useful React hooks", url: "https://usehooks.com/" },
-    { label: "Frontend Mentor – Challenges", url: "https://www.frontendmentor.io/" },
-    { label: "Buildspace – Web3/AI projects", url: "https://buildspace.so/" },
-  ],
-  "UI Lover": [
-    { label: "Fonts Arena – Free fonts", url: "https://fontsarena.com/" },
-    { label: "Coolors – Palette generator", url: "https://coolors.co/" },
-    { label: "Laws of UX – UX principles", url: "https://lawsofux.com/" },
-    { label: "Glassmorphism Generator", url: "https://hype4.academy/tools/glassmorphism-generator" },
-  ],
-};
+import VirtualizedList from "./VirtualizedList";
+import GridView from "./GridView";
+import { SearchBar } from "./SearchBar";
+import type { TabKey, MenuItem } from "../types";
+import { linksConfig, tabsConfig } from "../config";
 
 const ListComponent = () => {
-  const [activeTab, setActiveTab] = useState<TabKey>("My projects");
-  const items = data[activeTab] || [];
+  // Get initial tab from URL or use default
+  const getInitialTab = (): TabKey => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const tabFromUrl = params.get('tab');
+      if (tabFromUrl && tabsConfig.tabs.includes(tabFromUrl as TabKey)) {
+        return tabFromUrl as TabKey;
+      }
+    }
+    return tabsConfig.defaultTab;
+  };
+
+  const [activeTab, setActiveTab] = useState<TabKey>(getInitialTab());
+  const [view, setView] = useState<'list' | 'grid'>('list');
+  const [filteredItems, setFilteredItems] = useState<MenuItem[]>([]);
+  const items = linksConfig[activeTab] || [];
+  
+  // Initialize filtered items
+  useEffect(() => {
+    setFilteredItems(items);
+  }, [activeTab]);
+
+  // Update URL when tab changes
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    params.set('tab', activeTab);
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    window.history.replaceState({}, '', newUrl);
+  }, [activeTab]);
+  
+  // Handle search filter
+  const handleFilter = useCallback((filtered: MenuItem[]) => {
+    setFilteredItems(filtered);
+  }, []);
 
   return (
-    <div className="w-full max-w-lg space-y-2 px-4 sm:px-6 ">
+    <div className="w-full flex flex-col gap-4 h-full">
+      {/* Controls Section */}
+      <div className="space-y-3">
+        <ListTabs 
+          activeTab={activeTab} 
+          onTabChange={setActiveTab} 
+          view={view} 
+          onViewChange={setView} 
+        />
+        
+        {/* Search Bar - Only show for tabs with many items */}
+        {items.length > 5 && (
+          <SearchBar 
+            items={items} 
+            onFilter={handleFilter}
+            placeholder={`Search in ${activeTab}...`}
+          />
+        )}
+      </div>
       
-      <ListTabs onTabChange={setActiveTab} />
-      <div className="space-y-2 max-h-[60vh] overflow-y-auto scrollbar-hide">
-        <AnimatePresence mode="wait">
-          {items.map((item, index) => (
-            <motion.div
-              key={item.label}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.2, delay: index * 0.03 }}
-            >
-              <ListItemWithPreview item={item} />
-            </motion.div>
-          ))}
-        </AnimatePresence>
+      {/* Content Section */}
+      <div className="flex-1 min-h-0">
+        {view === 'list' ? (
+          <VirtualizedList items={filteredItems} activeTab={activeTab} />
+        ) : (
+          <GridView items={filteredItems} activeTab={activeTab} />
+        )}
       </div>
     </div>
   );

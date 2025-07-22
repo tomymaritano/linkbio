@@ -1,0 +1,83 @@
+/* Accessibility improvements */
+
+/* Focus styles for keyboard navigation */
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+  border-radius: 0.375rem;
+}
+
+.dark *:focus-visible {
+  outline-color: #818cf8;
+}
+
+/* Better focus for buttons and links */
+button:focus-visible,
+a:focus-visible {
+  outline-offset: 4px;
+}
+
+/* Skip to content link */
+.skip-to-content {
+  position: absolute;
+  left: -9999px;
+  top: 1rem;
+  z-index: 999;
+  padding: 0.5rem 1rem;
+  background-color: #6366f1;
+  color: white;
+  text-decoration: none;
+  border-radius: 0.375rem;
+}
+
+.skip-to-content:focus {
+  left: 1rem;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .bg-white\/10 {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .dark .bg-white\/5 {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+  
+  .border-black\/10 {
+    border-color: rgba(0, 0, 0, 0.3);
+  }
+  
+  .dark .border-white\/10 {
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* Screen reader only text */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

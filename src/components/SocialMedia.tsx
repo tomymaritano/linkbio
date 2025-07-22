@@ -1,95 +1,73 @@
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { motion } from "framer-motion";
-import { FaXTwitter, FaGithub, FaLinkedin } from "react-icons/fa6";
-import DarkModeToggle from "./DarkModeToggle";
-
-const socialIcons = [
-  {
-    icon: <FaXTwitter className="w-4 h-4 sm:w-5 sm:h-5" />,
-    url: "https://x.com/hacklabdog",
-    label: "Twitter",
-  },
-  {
-    icon: <FaGithub className="w-4 h-4 sm:w-5 sm:h-5" />,
-    url: "https://github.com/tomymaritano",
-    label: "GitHub",
-  },
-  {
-    icon: <FaLinkedin className="w-4 h-4 sm:w-5 sm:h-5" />,
-    url: "https://www.linkedin.com/in/tomymaritano/",
-    label: "LinkedIn",
-  },
-];
+import { socialConfig, siteConfig } from "../config";
+import { ShareButton } from "./ShareButton";
 
 const sharedStyles =
-  "p-3 rounded-full bg-white/10 dark:bg-white/5 backdrop-blur-md border border-black/10 dark:border-white/10 text-black dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors";
+  "p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/20 text-gray-700 dark:text-gray-300 hover:text-accent-500 transition-all duration-200";
 
 const tooltipStyles =
   "text-xs px-3 py-1.5 rounded-lg border border-black/10 dark:border-white/10 bg-white/80 dark:bg-white/10 text-black dark:text-white backdrop-blur-md transition-opacity duration-300 data-[state=delayed-open]:opacity-100 data-[state=closed]:opacity-0";
 
 const SocialMedia = () => {
   return (
-    <motion.div
-      className="flex flex-wrap justify-center items-center gap-2 sm:gap-3 mt-4"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.6 }}
-      transition={{ staggerChildren: 0.12 }}
-    >
-      {socialIcons.map((item, index) => (
-        <Tooltip.Provider key={index} delayDuration={200}>
-          <Tooltip.Root>
-            <Tooltip.Trigger asChild>
-              <motion.a
-                href={item.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={item.label}
-                className={sharedStyles}
-                variants={{
-                  hidden: { opacity: 0, scale: 0.8 },
-                  visible: { opacity: 1, scale: 1 },
-                }}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {item.icon}
-              </motion.a>
-            </Tooltip.Trigger>
-            <Tooltip.Portal>
-              <Tooltip.Content side="top" sideOffset={5} className={tooltipStyles}>
-                {item.label}
-                <Tooltip.Arrow className="fill-white/80 dark:fill-white/10" />
-              </Tooltip.Content>
-            </Tooltip.Portal>
-          </Tooltip.Root>
-        </Tooltip.Provider>
-      ))}
-
-      <Tooltip.Provider delayDuration={200}>
-        <Tooltip.Root>
-          <Tooltip.Trigger asChild>
-            <motion.div
-              variants={{
-                hidden: { opacity: 0, scale: 0.8 },
-                visible: { opacity: 1, scale: 1 },
-              }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-
+    <div className="flex flex-col items-center gap-6">
+      {/* Social Links with Labels */}
+      <div className="flex flex-wrap justify-center items-center gap-3">
+        {socialConfig.map((item, index) => {
+          const Icon = item.icon;
+          return (
+            <motion.a
+              key={index}
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={item.label}
+              className="group flex items-center gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl
+                bg-white/40 dark:bg-black/20 backdrop-blur-md border border-black/10 dark:border-white/10
+                text-xs sm:text-sm text-black dark:text-white transition-all hover:bg-white/60 dark:hover:bg-black/30"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+              whileTap={{ scale: 0.98 }}
             >
-              <DarkModeToggle />
-            </motion.div>
-          </Tooltip.Trigger>
-          <Tooltip.Portal>
-            <Tooltip.Content side="top" sideOffset={5} className={tooltipStyles}>
-              Toggle Theme
-              <Tooltip.Arrow className="fill-white/80 dark:fill-white/10" />
-            </Tooltip.Content>
-          </Tooltip.Portal>
-        </Tooltip.Root>
-      </Tooltip.Provider>
-    </motion.div>
+              <Icon className="w-5 h-5" />
+              <span className="transition-transform group-hover:translate-x-1 font-body font-semibold">{item.label}</span>
+            </motion.a>
+          );
+        })}
+        
+        {/* Share Button */}
+        <motion.div 
+          className="relative"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: socialConfig.length * 0.1 }}
+        >
+          <ShareButton />
+        </motion.div>
+      </div>
+      
+      {/* Divider */}
+      <div className="w-full max-w-xs">
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-gray-200 dark:border-gray-800"></div>
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-white dark:bg-[#161B22] px-2 text-gray-400">
+              Connect
+            </span>
+          </div>
+        </div>
+      </div>
+      
+      {/* Copyright */}
+      <p className="text-xs text-gray-500 dark:text-gray-600 text-center">
+        © {new Date().getFullYear()} All rights reserved
+      </p>
+    </div>
   );
 };
 

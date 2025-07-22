@@ -38,6 +38,9 @@ useEffect(() => {
       className="px-3 w-12 h-12 py-1.5 flex items-center justify-center rounded-full 
       bg-white/10 dark:bg-white/5 backdrop-blur-md border border-black/10 dark:border-white/10 
       transition-all duration-300"
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      aria-pressed={isDark}
+      role="switch"
     >
       <AnimatePresence mode="wait">
         <motion.div
