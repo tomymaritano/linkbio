@@ -1,6 +1,6 @@
 // Configuration for social media links
 import { FaXTwitter, FaGithub, FaLinkedin } from "react-icons/fa6";
-import { ComponentType } from 'react';
+import type { ComponentType } from 'react';
 
 export interface SocialLink {
   icon: ComponentType<{ className?: string }>;

@@ -17,7 +17,7 @@ const ListItemWithPreview = ({ item }: Props) => {
   const { trackClick, getClickCount } = useAnalytics();
   const clickCount = getClickCount(item.url);
   
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick = () => {
     trackClick(item);
   };
 

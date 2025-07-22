@@ -2,7 +2,9 @@ import './App.css'
 import './index.css'
 import './styles/accessibility.css'
 import './styles/layout.css'
+import { useRef } from 'react';
 import ListComponent from './components/ListComponent';
+import type { ListComponentRef } from './components/ListComponent';
 import Profile from './components/Profile';
 import SocialMedia from './components/SocialMedia';
 import { ThemeTransitionWrapper } from './components/ThemeTransitionWrapper';
@@ -14,8 +16,12 @@ import { KeyboardHints } from './components/KeyboardHints';
 import { ToastProvider } from './hooks/useToast';
 
 function App() {
+  const listComponentRef = useRef<ListComponentRef>(null);
+  
   // Enable keyboard navigation
-  useKeyboardNavigation({});
+  useKeyboardNavigation({
+    onSearch: () => listComponentRef.current?.openSearch()
+  });
   
   return (
     <ThemeTransitionWrapper>
@@ -46,7 +52,7 @@ function App() {
             <div className="content-area flex-1 min-h-0 flex flex-col">
               <nav role="navigation" aria-label="Links and resources" className="flex-1 min-h-0 flex flex-col">
                 <ErrorBoundary>
-                  <ListComponent />
+                  <ListComponent ref={listComponentRef} />
                 </ErrorBoundary>
               </nav>
             </div>

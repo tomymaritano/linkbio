@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
+import { createContext, useContext, useState, useCallback } from 'react';
+import type { ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, AlertCircle, Info, X } from 'lucide-react';
 
@@ -81,7 +82,7 @@ const ToastContainer = () => {
   return (
     <div className="fixed bottom-4 right-4 z-50 pointer-events-none">
       <AnimatePresence>
-        {toasts.map((toast, index) => {
+        {toasts.map((toast) => {
           const Icon = icons[toast.type];
           return (
             <motion.div

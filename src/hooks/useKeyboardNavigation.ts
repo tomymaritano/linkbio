@@ -30,15 +30,11 @@ export const useKeyboardNavigation = ({
         }
       }
       
-      // Search with Cmd/Ctrl + K
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      // Search with Cmd/Ctrl + K or /
+      if (((e.metaKey || e.ctrlKey) && e.key === 'k') || e.key === '/') {
         e.preventDefault();
         if (onSearch) {
           onSearch();
-        } else {
-          // Fallback: focus the search input
-          const searchInput = document.querySelector('input[type="search"]') as HTMLInputElement;
-          searchInput?.focus();
         }
       }
       

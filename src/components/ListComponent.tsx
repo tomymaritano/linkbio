@@ -1,13 +1,19 @@
 // components/ListComponent.tsx
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useImperativeHandle, forwardRef } from "react";
 import ListTabs from "./ListTabs";
 import VirtualizedList from "./VirtualizedList";
 import GridView from "./GridView";
-import { SearchBar } from "./SearchBar";
+import { SearchModal } from "./SearchModal";
 import type { TabKey, MenuItem } from "../types";
 import { linksConfig, tabsConfig } from "../config";
+import { Search } from "lucide-react";
+import { motion } from "framer-motion";
 
-const ListComponent = () => {
+export interface ListComponentRef {
+  openSearch: () => void;
+}
+
+const ListComponent = forwardRef<ListComponentRef>((_, ref) => {
   // Get initial tab from URL or use default
   const getInitialTab = (): TabKey => {
     if (typeof window !== 'undefined') {
@@ -23,6 +29,7 @@ const ListComponent = () => {
   const [activeTab, setActiveTab] = useState<TabKey>(getInitialTab());
   const [view, setView] = useState<'list' | 'grid'>('list');
   const [filteredItems, setFilteredItems] = useState<MenuItem[]>([]);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const items = linksConfig[activeTab] || [];
   
   // Initialize filtered items
@@ -38,10 +45,17 @@ const ListComponent = () => {
     window.history.replaceState({}, '', newUrl);
   }, [activeTab]);
   
-  // Handle search filter
-  const handleFilter = useCallback((filtered: MenuItem[]) => {
-    setFilteredItems(filtered);
+  
+  // Handle item selection from search
+  const handleSelectItem = useCallback((item: MenuItem) => {
+    // Navigate to the item's URL
+    window.open(item.url, '_blank');
   }, []);
+  
+  // Expose methods to parent
+  useImperativeHandle(ref, () => ({
+    openSearch: () => setIsSearchOpen(true)
+  }), []);
 
   return (
     <div className="w-full flex flex-col gap-4 h-full">
@@ -54,14 +68,18 @@ const ListComponent = () => {
           onViewChange={setView} 
         />
         
-        {/* Search Bar - Only show for tabs with many items */}
-        {items.length > 5 && (
-          <SearchBar 
-            items={items} 
-            onFilter={handleFilter}
-            placeholder={`Search in ${activeTab}...`}
-          />
-        )}
+        {/* Search Button */}
+        <motion.button
+          onClick={() => setIsSearchOpen(true)}
+          className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl
+                     bg-white/40 dark:bg-black/20 backdrop-blur-md border border-black/10 dark:border-white/10
+                     text-sm text-black dark:text-white transition-all hover:bg-white/60 dark:hover:bg-black/30"
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          <Search className="w-4 h-4" />
+          <span className="text-gray-600 dark:text-gray-400">Search links, projects, or resources...</span>
+        </motion.button>
       </div>
       
       {/* Content Section */}
@@ -72,8 +90,18 @@ const ListComponent = () => {
           <GridView items={filteredItems} activeTab={activeTab} />
         )}
       </div>
+      
+      {/* Search Modal */}
+      <SearchModal 
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+        items={Object.values(linksConfig).flat()}
+        onSelectItem={handleSelectItem}
+      />
     </div>
   );
-};
+});
+
+ListComponent.displayName = 'ListComponent';
 
 export default ListComponent;

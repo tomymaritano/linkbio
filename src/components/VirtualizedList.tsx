@@ -5,7 +5,7 @@ import ListItemWithPreview from './ListItemWithPreview';
 import { LinkSkeleton } from './LinkSkeleton';
 import { EmptyState } from './EmptyState';
 import type { MenuItem } from '../types';
-import { fadeInUp } from '../utils/animations';
+// import { fadeInUp } from '../utils/animations';
 
 interface VirtualizedListProps {
   items: MenuItem[];
@@ -66,11 +66,10 @@ const VirtualizedList = ({ items, activeTab }: VirtualizedListProps) => {
             {items.map((item, index) => (
             <motion.div
               key={`${activeTab}-${item.label}`}
-              variants={fadeInUp}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              custom={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3, delay: index * 0.05 }}
             >
               <ListItemWithPreview item={item} />
             </motion.div>

@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { EmptyState } from "./EmptyState";
 import type { MenuItem } from "../types";
-import { fadeInUp, staggerContainer } from "../utils/animations";
+// import { fadeInUp, staggerContainer } from "../utils/animations";
 
 interface GridViewProps {
   items: MenuItem[];
@@ -36,9 +36,9 @@ const GridView = ({ items, activeTab }: GridViewProps) => {
     <motion.div 
       ref={scrollRef}
       className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 h-full overflow-y-auto overflow-x-hidden pr-2 scrollbar-thin"
-      variants={staggerContainer}
-      initial="initial"
-      animate="animate"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
     >
       <AnimatePresence mode="sync">
         {items.map((item, index) => {
@@ -49,10 +49,10 @@ const GridView = ({ items, activeTab }: GridViewProps) => {
               href={item.url}
               target={external ? "_blank" : undefined}
               rel={external ? "noopener noreferrer" : undefined}
-              variants={fadeInUp}
-              initial="initial"
-              animate="animate"
-              exit="exit"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3, delay: index * 0.05 }}
               layout
               custom={index}
               whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}

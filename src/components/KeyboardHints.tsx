@@ -26,9 +26,10 @@ export const KeyboardHints = () => {
 
   const shortcuts = [
     { keys: ['1', '2', '3'], description: 'Switch tabs' },
-    { keys: ['⌘', 'K'], description: 'Search' },
+    { keys: ['/'], description: 'Open search' },
+    { keys: ['⌘', 'K'], description: 'Open search' },
     { keys: ['⌘', 'D'], description: 'Toggle theme' },
-    { keys: ['Esc'], description: 'Clear search' },
+    { keys: ['Esc'], description: 'Close dialogs' },
   ];
 
   return (

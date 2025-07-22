@@ -1,13 +1,6 @@
-import * as Tooltip from "@radix-ui/react-tooltip";
 import { motion } from "framer-motion";
-import { socialConfig, siteConfig } from "../config";
+import { socialConfig } from "../config";
 import { ShareButton } from "./ShareButton";
-
-const sharedStyles =
-  "p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/20 text-gray-700 dark:text-gray-300 hover:text-accent-500 transition-all duration-200";
-
-const tooltipStyles =
-  "text-xs px-3 py-1.5 rounded-lg border border-black/10 dark:border-white/10 bg-white/80 dark:bg-white/10 text-black dark:text-white backdrop-blur-md transition-opacity duration-300 data-[state=delayed-open]:opacity-100 data-[state=closed]:opacity-0";
 
 const SocialMedia = () => {
   return (

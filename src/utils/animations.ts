@@ -10,7 +10,7 @@ export const fadeInUp = {
     y: 0,
     transition: {
       duration: 0.5,
-      ease: "easeInOut"
+      ease: [0.43, 0.13, 0.23, 0.96]
     }
   },
   exit: { 
@@ -42,7 +42,7 @@ export const scaleIn = {
     opacity: 1,
     transition: {
       duration: 0.3,
-      ease: "easeOut"
+      ease: [0.215, 0.61, 0.355, 1]
     }
   },
   exit: { 
@@ -61,7 +61,7 @@ export const slideIn = {
     opacity: 1,
     transition: {
       duration: 0.4,
-      ease: "easeOut"
+      ease: [0.215, 0.61, 0.355, 1]
     }
   }
 };
